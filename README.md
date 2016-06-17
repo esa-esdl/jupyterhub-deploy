@@ -7,4 +7,9 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 
 ## Pre-requisites
 
+## Pre-configuration
+1. ``cd jupyterhub-deploy``
+2. ``cp .env.example .env``
+3. Modify .env
+
 ## Deployment
