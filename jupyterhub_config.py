@@ -6,7 +6,7 @@ import os
 
 c = get_config()
 
-os.environ["DOCKER_HOST"] = "10.2.0.25:4000"
+os.environ["DOCKER_HOST"] = "0.0.0.0:4000"
 
 # We rely on environment variables to configure JupyterHub so that we
 # avoid having to rebuild the JupyterHub container every time we change a
