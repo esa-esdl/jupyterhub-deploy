@@ -25,7 +25,18 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
   * run the swarm manager  
      ```docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM2 host]:4000 consul://[VM1 host]:8500```
   * run the swarm node  
-     ```docker run -d --net swarmnet swarm join --advertise=[VM2 host]:2375 consul://[VM1 host]:8500```
+     ```docker run -d swarm join --advertise=[VM2 host]:2375 consul://[VM1 host]:8500```
 3. **VM3** acts as a node2.
   * run the swarm node  
-     ```docker run -d --net swarmnet swarm join --advertise=[VM3 host]:2375 consul://[VM1 host]:8500```
+     ```docker run -d swarm join --advertise=[VM3 host]:2375 consul://[VM1 host]:8500```
+4. Restart the docker daemon in each VM with additional arguments to allow it to be part of the swarm cluster  
+   VM1 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
+   VM2 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM2 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
+   VM3 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM3 host]:2375 --cluster-store consul://[VM1 host]:8500 &`
+5. Create an overlay docker network so that containers can communicate to each other.  
+   In VM1 : ```docker -H tcp://0.0.0.0:4000 network create -d overlay swarmnet```  
+   Now **swarmnet** network should be available in all 3 VMs. Check using this command `docker network ls`
+6. Make sure that `.env` file contains the correct information (in case of any name customisations). 
+7. `cd jupyterhub-deploy`
+8. `make build`
+9. `docker-compose up -d`
