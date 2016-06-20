@@ -4,7 +4,15 @@ MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 
 RUN conda install --quiet --yes 'xarray' 'dask'
 
-#USER root
+USER root
+
+COPY gridtools /srv/jupyterhub/gridtools
+WORKDIR /srv/jupyterhub/gridtools
+RUN python setup.py install
+
+COPY cablab-core /srv/jupyterhub/cablab-core
+WORKDIR /srv/jupyterhub/cablab-core
+RUN python setup.py install
 
 # Install Julia.
 #RUN apt-get update
