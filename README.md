@@ -15,7 +15,7 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
   * `cd jupyterhub-deploy`  
   * `cp .env.example .env`  
   * modify .env
-2. Modify userlist file to grant normal or admin access to GitHub account(s)  
+2. Modify `userlist` file to grant normal or admin access to GitHub account(s)  
   * `cd jupyterhub-deploy`  
   * `touch userlist`
   * modify userlist  
@@ -23,8 +23,6 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
      user1 admin  
      user2  
      user3
-2. `cp .env.example .env`
-3. Modify .env
 
 ## Deployment
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
