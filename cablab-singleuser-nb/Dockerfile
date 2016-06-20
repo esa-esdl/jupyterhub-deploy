@@ -14,7 +14,7 @@ COPY cablab-core /srv/jupyterhub/cablab-core
 WORKDIR /srv/jupyterhub/cablab-core
 RUN python setup.py install
 
-# Install Julia.
+# Install Julia. Still looking for the best way to install Julia in this container.
 #RUN apt-get update
 #RUN apt-get -y install software-properties-common
 #RUN add-apt-repository -y ppa:staticfloat/juliareleases
