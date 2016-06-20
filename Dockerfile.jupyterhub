@@ -15,9 +15,6 @@ COPY ./secrets/*.crt $SSL_CERT
 COPY ./secrets/*.key $SSL_KEY
 COPY cookie_secret /srv/jupyterhub
 
-#COPY swarmspawner.py /srv/jupyterhub_config/swarmspawner.py
-#COPY docker_oauth.py /srv/jupyterhub_config/docker_oauth.py
-
 RUN chmod 700 /srv/jupyterhub/secrets && \
     chmod 600 /srv/jupyterhub/secrets/*
 
