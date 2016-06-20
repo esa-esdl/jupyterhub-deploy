@@ -28,12 +28,3 @@ This repository contains **Dockerfile** of a single user Jupyter notebook that i
 3. `git clone https://github.com/CAB-LAB/cablab-core.git`
 
 4. `docker build -t cablab/singleuser .`
-
-
-### Usage
-
-    docker run -it --rm dockerfile/julia
-
-#### Run `julia`
-
-    docker run -it --rm dockerfile/julia julia
