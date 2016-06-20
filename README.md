@@ -1,6 +1,6 @@
 # jupyterhub-deploy
 
-This is another variant of jupyterhub-deploy, which originally comes from https://github.com/jupyterhub/jupyterhub-deploy-docker. As in the original version, it uses ``make build`` command to create the docker image and ``docker-compose up`` to run the docker container. This version has been successfully deployed and run in 3 Ubuntu VMs (1 for the server and 2 for the nodes).
+This is another variant of jupyterhub-deploy, which originally comes from https://github.com/jupyterhub/jupyterhub-deploy-docker. The overall architecture has been inspired by the original jupyterhub-deploy as well as a very [informative article](https://developer.rackspace.com/blog/deploying-jupyterhub-for-education/) by Jessica Hamrick ([@jhamrick](https://github.com/jhamrick)). As in the original version, it uses ``make build`` command to create the docker image and ``docker-compose up`` to run the docker container. This version has been successfully deployed and run in 3 Ubuntu VMs (1 for the server and 2 for the nodes).
 
 ## Use case scenario
 A Jupyterhub server that can spawn individual Jupyter Notebook containers in a cluster. This is to provide a framework for users of Cab-Lab to play around with the data cube. 
