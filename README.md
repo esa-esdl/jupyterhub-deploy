@@ -46,15 +46,13 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
    In VM1 : ```docker -H tcp://0.0.0.0:4000 network create -d overlay swarmnet```  
    Now **swarmnet** network should be available in all 3 VMs. Check using this command `docker network ls`
 6. Setup a NFS server in VM1 (for more information go to [this page](http://www.tldp.org/HOWTO/NFS-HOWTO/server.html)  
-  * ``vim /etc/exports`` and add the following entries  
- ```
- /_[any path]_/jupyterhub-shared    *(rw,sync,no_root_squash)  
- /_[any path]_/cablab-shared        *(rw,sync,no_root_squash)
- ```
+  * ``vim /etc/exports`` and add the following entries
+ <pre><code>/_[any path]_/jupyterhub-shared    *(rw,sync,no_root_squash)  
+ /_[any path]_/cablab-shared        *(rw,sync,no_root_squash)</pre></code>
   * ``exportfs -r``
 7. Mount **jupyterhub-shared** and **cablab-shared** in each node VM  
-  * <pre>mount _[VM1 host]_:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes</pre>  
-  * <pre>mount _[VM1 host]_:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared</pre>
+   <pre><code>mount _[VM1 host]_:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes
+   mount _[VM1 host]_:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared</code></pre>
 8. Install cablab package  
   * `cd /_[any local path]_/cablab-shared`  
   * `git clone https://github.com/CAB-LAB/gridtools.git`  
