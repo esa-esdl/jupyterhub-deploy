@@ -20,8 +20,6 @@ RUN git clone https://github.com/CAB-LAB/cablab-core.git
 WORKDIR /srv/jupyterhub/cablab-core
 RUN python setup.py install
 
-USER jovyan
-
 # Install Julia
 #COPY julia-0.4.6 /srv/jupyterhub/julia
 WORKDIR /srv/jupyterhub
@@ -30,4 +28,5 @@ RUN mkdir julia && tar xzf julia-0.4.6-linux-x86_64.tar.gz -C julia --strip-comp
 RUN PATH="/srv/jupyterhub/julia/bin:$PATH"
 WORKDIR /srv/jupyterhub/julia
 RUN echo 'Pkg.add("IJulia")' > IJulia.jl
+USER jovyan
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
