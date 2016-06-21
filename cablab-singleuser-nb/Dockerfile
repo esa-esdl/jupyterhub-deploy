@@ -28,6 +28,6 @@ WORKDIR /srv/jupyterhub
 RUN wget https://julialang.s3.amazonaws.com/bin/linux/x64/0.4/julia-0.4.6-linux-x86_64.tar.gz
 RUN mkdir julia && tar xzf julia-0.4.6-linux-x86_64.tar.gz -C julia --strip-components 1
 RUN PATH="/srv/jupyterhub/julia/bin:$PATH"
-COPY IJulia.jl /srv/jupyterhub/julia
 WORKDIR /srv/jupyterhub/julia
+RUN echo 'Pkg.add("IJulia")' > IJulia.jl
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
