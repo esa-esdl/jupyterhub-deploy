@@ -19,10 +19,10 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
   * `cd jupyterhub-deploy`  
   * `touch userlist`
   * modify userlist  
-     Example :  
-     user1 admin  
+     Example :
+     <pre><code>user1 admin  
      user2  
-     user3
+     user3</pre></code>
 
 ## Deployment
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
