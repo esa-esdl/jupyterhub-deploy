@@ -53,8 +53,8 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
  ```
   * ``exportfs -r``
 7. Mount **jupyterhub-shared** and **cablab-shared** in each node VM  
-  * `mount [VM1 host]:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes`  
-  * `mount [VM1 host]:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared`
+  * <pre>mount _[VM1 host]_:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes</pre>  
+  * <pre>mount _[VM1 host]_:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared</pre>
 8. Install cablab package  
   * `cd /_[any local path]_/cablab-shared`  
   * `git clone https://github.com/CAB-LAB/gridtools.git`  
