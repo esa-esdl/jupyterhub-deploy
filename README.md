@@ -23,6 +23,11 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
      <pre><code>user1 admin  
      user2  
      user3</pre></code>
+3. Copy the certificates to `secrets`folder
+  * `cd jupyterhub-deploy` 
+  * mkdir secrets
+  * `cp <any directory>/jupyterhub.crt secrets/`
+  * `cp <any directory>/jupyterhub.key secrets/`
 
 ## Deployment
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
