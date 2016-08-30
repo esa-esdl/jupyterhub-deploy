@@ -4,15 +4,10 @@ MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 
 # Install python modules
 RUN conda install --quiet --yes 'xarray' 'dask'
+RUN conda install -c forman gridtools
 RUN conda install -c anaconda basemap=1.0.7
 
 USER root
-
-# Install gridtools
-WORKDIR /srv/jupyterhub
-RUN git clone https://github.com/CAB-LAB/gridtools.git
-WORKDIR /srv/jupyterhub/gridtools
-RUN python setup.py install
 
 # Install cablab
 WORKDIR /srv/jupyterhub
@@ -29,3 +24,5 @@ WORKDIR /srv/jupyterhub/julia
 RUN echo 'Pkg.add("IJulia")' > IJulia.jl
 USER jovyan
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
+
+WORKDIR /home/jovyan/work
