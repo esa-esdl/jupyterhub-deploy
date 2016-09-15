@@ -25,7 +25,15 @@ RUN mkdir julia && tar xzf julia-0.4.6-linux-x86_64.tar.gz -C julia --strip-comp
 RUN PATH="/srv/jupyterhub/julia/bin:$PATH"
 WORKDIR /srv/jupyterhub/julia
 RUN echo 'Pkg.add("IJulia")' > IJulia.jl
+RUN echo 'Pkg.clone("https://github.com/CAB-LAB/CABLAB.jl");Pkg.checkout("CABLAB","ipt");using CABLAB' > installcablab.jl
+RUN echo 'Pkg.clone("https://github.com/milanflach/LIBSVM.jl");Pkg.checkout("LIBSVM","mutating_versions")' > installlibsvm.jl
+RUN echo 'Pkg.clone("https://github.com/milanflach/MultivariateAnomalies.jl")' > installmultivariate.jl
 USER jovyan
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
+RUN /srv/jupyterhub/julia/bin/julia installcablab.jl
+RUN /srv/jupyterhub/julia/bin/julia installlibsvm.jl
+RUN /srv/jupyterhub/julia/bin/julia installmultivariate.jl
+
+
 
 WORKDIR /home/jovyan/work
