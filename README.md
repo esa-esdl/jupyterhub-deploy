@@ -58,15 +58,11 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 7. Mount **jupyterhub-shared** and **cablab-shared** in each node VM  
    <pre><code>mount _[VM1 host]_:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes
    mount _[VM1 host]_:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared</code></pre>
-8. Install cablab package  
-  <pre><code>cd /_[any local path]_/cablab-shared
-  git clone https://github.com/CAB-LAB/gridtools.git
-  git clone https://github.com/CAB-LAB/cablab-core.git</code></pre>
-9. Create cablab/singleuser docker image  
+8. Create cablab/singleuser docker image  
   <pre><code>cd /_[any local path]_/cablab-shared
   docker build -t cablab/singleuser .</pre></code>
-10. Make sure that `.env` file contains the correct information (in case of any name customisations). 
-11. `cd jupyterhub-deploy`
-12. `make build`
-13. `docker-compose up -d`
-14. Open a browser and go to `https://[VM1 host]`
+9. Make sure that `.env` file contains the correct information (in case of any name customisations). 
+10. `cd jupyterhub-deploy`
+11. `make build`
+12. `docker-compose up -d`
+13. Open a browser and go to `https://[VM1 host]`
