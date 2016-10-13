@@ -96,4 +96,24 @@ sudo lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata doc
 3. Activate the new profile
 <pre><code>sudo lvchange --metadataprofile docker-thinpool docker/thinpool
 </pre></code>
+4. Install Docker version 1.11
+<pre><code>sudo yum update
+sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+EOF
+sudo yum install docker-engine-1.11.2
+</pre></code>
+5. Install Docker Compose
+<pre><code>sudo -i
+curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+</pre></code>
+6. Start docker daemon
+<pre><code>nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 -s devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true &
+</pre></code>
     
