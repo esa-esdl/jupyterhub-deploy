@@ -149,4 +149,22 @@ sudo vim /etc/exports
 
 ### Deployment on VM2
 
+1. Start docker daemon
+<pre><code>nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM2 host]:2375 --cluster-store consul://[VM1 host]:8500 -s devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true &
+</pre></code>
+2. Mount centralised directories
+<pre><code>sudo mount [VM1 host]:/container-data /var/lib/docker/volumes
+sudo mount [VM1 host]:[USER_HOME]/cablab-shared [USER_HOME]/cablab-shared
+sudo mount [VM1 host]:/data /data
+</pre></code>
+
 ### Deployment on VM3
+
+1. Start docker daemon
+<pre><code>nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM3 host]:2375 --cluster-store consul://[VM1 host]:8500 -s devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true &
+</pre></code>
+2. Mount centralised directories
+<pre><code>sudo mount [VM1 host]:/container-data /var/lib/docker/volumes
+sudo mount [VM1 host]:[USER_HOME]/cablab-shared [USER_HOME]/cablab-shared
+sudo mount [VM1 host]:/data /data
+</pre></code>
