@@ -12,9 +12,11 @@ This repository contains **Dockerfile** of a single user Jupyter notebook that i
 
 * Python2 and Python3 bundled in Conda installation (more detailed on the included packages can be found in [scipy-notebook Dockerfile](https://github.com/jupyter/docker-stacks/blob/master/scipy-notebook/Dockerfile)) 
 
-* cablab module with gridtools (after completing the following installation part)
+* cablab-core (latest)
 
-* Julia
+* gridtools (latest)
+
+* Julia 0.4.6
 
 * [future] R
 
