@@ -9,6 +9,9 @@ This is another variant of jupyterhub-deploy, which originally comes from https:
   * [Deployment Ubuntu](#deployment-ubuntu)
   * [Deployment CentOS](#deployment-centos)
     * [Pre-configuration](#pre-configuration-for-devicemapper-storage-driver)
+    * [Deployment on VM1](#deployment-on-vm1)
+    * [Deployment on VM2](#deployment-on-vm2)
+    * [Deployment on VM3](#deployment-on-vm3)
 
 ## Use case scenario
 A Jupyterhub server that can spawn individual Jupyter Notebook containers in a cluster. This is to provide a framework for users of Cab-Lab to play around with the data cube. 
@@ -109,12 +112,41 @@ gpgkey=https://yum.dockerproject.org/gpg
 EOF
 sudo yum install docker-engine-1.11.2
 </pre></code>
-5. Install Docker Compose
+6. Start docker daemon
+<pre><code>nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 -s devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true &
+</pre></code>
+
+### Deployment on VM1
+
+1. Install Docker Compose
 <pre><code>sudo -i
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 </pre></code>
-6. Start docker daemon
+2. Set-up NFS server
+Assumptions: **/data** is the datacube directory, **/container-data** is the docker container directory, **~/cablab-shared** is the directory for sample notebooks
+<pre><code>cd ~
+sudo mkdir cablab-shared
+sudo mkdir /data
+sudo mount -o defaults /dev/data/datacube /data (after attaching the datacube volume to this VM)
+sudo vim /etc/exports
+		[USER_HOME]/cablab-shared        *(rw,sync,no_root_squash)
+		/data                            *(rw,sync,no_root_squash)
+  /container-data                  *(rw,sync,no_root_squash)
+</pre></code>
+3. Start docker daemon
 <pre><code>nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 -s devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true &
 </pre></code>
-    
+4. Mount the centralised docker volume directory. 
+<pre><code>sudo mount [VM1 host]:/container-data /var/lib/docker/volumes
+</pre></code>
+5. Start consul
+<pre><code>docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap
+</pre></code>
+6. Start docker swarm manager
+<pre><code>docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM1 host]:4000 consul://[VM1 host]:8500
+</pre></code>
+
+### Deployment on VM2
+
+### Deployment on VM3
