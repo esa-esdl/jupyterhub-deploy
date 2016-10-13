@@ -75,4 +75,5 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 13. Open a browser and go to `https://[VM1 host]`
 
 ## Deployment CentOS
-
+### Pre-configuration (for devicemapper storage driver)
+This pre-configuration steps are not necessarily for only CentOS deployment, but for all deployment in an environment where the storage driver is devicemapper. In this environment, when running docker daemon, by default it uses loop-lvm mode. This mode uses sparse files to build the thin pool used by image and container snapshots and it is not very efficient for extensive IO operations within the containers. [Docker](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#/configure-docker-with-devicemapper)  states that this mode is not suitable for production use and recommends direct-lvm mode instead. So here are the steps on how to configure a direct-lvm mode in CentOS VM. These have been tested in CentOS 7.2 with kernel 3.10. 
