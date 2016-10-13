@@ -42,7 +42,7 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
      ```docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap```
   * run the swarm manager  
       ```docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM1 host]:4000 consul://[VM1 host]:8500```
-2. **VM2** acts as a node1 as well as a replica manager. 
+2. **VM2** acts as a node1 as well as a second manager. 
   * run the swarm manager  
      ```docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM2 host]:4000 consul://[VM1 host]:8500```
   * run the swarm node  
