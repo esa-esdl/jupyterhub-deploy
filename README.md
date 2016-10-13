@@ -2,6 +2,13 @@
 
 This is another variant of jupyterhub-deploy, which originally comes from https://github.com/jupyterhub/jupyterhub-deploy-docker. The overall architecture has been inspired by the original jupyterhub-deploy as well as a very [informative article](https://developer.rackspace.com/blog/deploying-jupyterhub-for-education/) by Jessica Hamrick ([@jhamrick](https://github.com/jhamrick)). As in the original version, it uses ``make build`` command to create the docker image and ``docker-compose up`` to run the docker container. This version has been successfully deployed and run in 3 Ubuntu VMs (1 for the server and 2 for the nodes).
 
+# Table of Contents
+  * [Use case scenario](#use-case-scenario)
+  * [Pre-requisites](#pre-requisites)
+  * [Pre-configuration](#pre-configuration)
+  * [Deployment Ubuntu](#deployment-ubuntu)
+  * [Deployment CentOS](#deployment-centos)
+
 ## Use case scenario
 A Jupyterhub server that can spawn individual Jupyter Notebook containers in a cluster. This is to provide a framework for users of Cab-Lab to play around with the data cube. 
 
@@ -29,7 +36,7 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
   * `cp <any directory>/jupyterhub.crt secrets/`
   * `cp <any directory>/jupyterhub.key secrets/`
 
-## Deployment
+## Deployment Ubuntu
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
   * run the consul container  
      ```docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap```
@@ -66,3 +73,6 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 11. `make build`
 12. `docker-compose up -d`
 13. Open a browser and go to `https://[VM1 host]`
+
+## Deployment CentOS
+
