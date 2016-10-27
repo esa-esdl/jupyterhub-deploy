@@ -19,6 +19,8 @@ RUN python setup.py install
 RUN apt-get update
 RUN apt-get -y install libhdf5-dev
 RUN apt-get -y install libnetcdf-dev
+RUN apt-get -y install libzmq3-dev
+RUN apt-get -y install cmake
 WORKDIR /srv/jupyterhub
 RUN wget https://julialang.s3.amazonaws.com/bin/linux/x64/0.5/julia-0.5.0-linux-x86_64.tar.gz
 RUN mkdir julia && tar xzf julia-0.5.0-linux-x86_64.tar.gz -C julia --strip-components 1
