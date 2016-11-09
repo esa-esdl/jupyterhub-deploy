@@ -5,7 +5,21 @@ MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 # Install python modules
 RUN conda install --quiet --yes 'xarray' 'dask'
 RUN conda install -c forman gridtools
-RUN conda install -c anaconda basemap=1.0.7
+RUN conda install -c anaconda --yes basemap=1.0.7
+RUN conda install -c r r-irkernel
+
+# Install R and R CABLAB
+USER root
+WORKDIR /srv/jupyterhub
+RUN apt-get update
+RUN apt-get -y install apt-utils
+RUN apt-get -y install libnetcdf-dev libudunits2-dev udunits-bin
+RUN wget https://cran.r-project.org/src/contrib/Archive/RNetCDF/RNetCDF_1.6.1-2.tar.gz
+RUN R CMD INSTALL RNetCDF_1.6.1-2.tar.gz
+RUN git clone https://github.com/CAB-LAB/RCABLAB
+WORKDIR /srv/jupyterhub/RCABLAB
+RUN R CMD INSTALL RCABLAB
+
 
 USER root
 
@@ -14,6 +28,7 @@ WORKDIR /srv/jupyterhub
 RUN git clone https://github.com/CAB-LAB/cablab-core.git
 WORKDIR /srv/jupyterhub/cablab-core
 RUN python setup.py install
+
 
 # Install Julia
 RUN apt-get update
