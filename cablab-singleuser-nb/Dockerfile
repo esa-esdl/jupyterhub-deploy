@@ -41,8 +41,8 @@ RUN /srv/jupyterhub/julia/bin/julia precomp.jl
 USER root
 WORKDIR /srv/jupyterhub
 RUN git clone https://github.com/CAB-LAB/RCABLAB
-RUN wget https://cran.r-project.org/src/contrib/Archive/RNetCDF/RNetCDF_1.6.1-2.tar.gz
-RUN R CMD INSTALL RNetCDF_1.6.1-2.tar.gz
+RUN wget https://cran.r-project.org/src/contrib/Archive/ncdf4/ncdf4_1.14.tar.gz
+RUN R CMD INSTALL ncdf4_1.14.tar.gz
 WORKDIR /srv/jupyterhub/RCABLAB
 RUN R CMD INSTALL RCABLAB
 WORKDIR /srv/jupyterhub
