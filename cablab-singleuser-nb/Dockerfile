@@ -31,6 +31,7 @@ RUN echo 'Pkg.clone("https://github.com/milanflach/LIBSVM.jl");Pkg.checkout("LIB
 RUN echo 'Pkg.clone("https://github.com/milanflach/MultivariateAnomalies.jl")' > installmultivariate.jl
 RUN echo 'using CABLAB' > precomp.jl
 USER jovyan
+RUN export CABLAB_WORKDIR="/home/jovyan/work/tmp"
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
 RUN /srv/jupyterhub/julia/bin/julia installlibsvm.jl
 RUN /srv/jupyterhub/julia/bin/julia installmultivariate.jl
