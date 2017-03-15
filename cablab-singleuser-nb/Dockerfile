@@ -41,9 +41,10 @@ RUN /srv/jupyterhub/julia/bin/julia precomp.jl
 USER root
 WORKDIR /srv/jupyterhub
 RUN git clone https://github.com/CAB-LAB/RCABLAB
-RUN wget https://cran.r-project.org/src/contrib/Archive/ncdf4/ncdf4_1.14.tar.gz
-RUN R CMD INSTALL ncdf4_1.14.tar.gz
+RUN wget https://cran.r-project.org/src/contrib/Archive/RNetCDF/RNetCDF_1.6.1-2.tar.gz
+RUN R CMD INSTALL RNetCDF_1.6.1-2.tar.gz
 WORKDIR /srv/jupyterhub/RCABLAB
+RUN git checkout 02998cd41ee0c3862cf698b6729471576366dd67
 RUN R CMD INSTALL RCABLAB
 WORKDIR /srv/jupyterhub
 RUN apt-get -y install libcurl4-openssl-dev libssl-dev
