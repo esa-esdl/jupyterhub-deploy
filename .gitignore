@@ -3,3 +3,4 @@ cookie_secret
 secrets/
 userlist
 .DS_Store
+.idea
