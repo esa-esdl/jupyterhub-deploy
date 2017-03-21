@@ -4,6 +4,9 @@ MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 # Install Julia
 USER root
 WORKDIR /srv/jupyterhub
+RUN apt-get update
+RUN apt-get -y install apt-utils
+RUN apt-get -y install r-base r-recommended libcurl4-gnutls-dev libssl-dev libnetcdf-dev libudunits2-dev udunits-bin libhdf5-dev libzmq3-dev cmake
 RUN wget https://julialang.s3.amazonaws.com/bin/linux/x64/0.5/julia-0.5.0-linux-x86_64.tar.gz
 RUN mkdir julia && tar xzf julia-0.5.0-linux-x86_64.tar.gz -C julia --strip-components 1
 RUN PATH="/srv/jupyterhub/julia/bin:$PATH"
