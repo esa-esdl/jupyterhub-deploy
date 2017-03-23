@@ -14,7 +14,7 @@ RUN git checkout 02998cd41ee0c3862cf698b6729471576366dd67
 RUN R CMD INSTALL RCABLAB
 WORKDIR /srv/jupyterhub
 RUN apt-get -y install libcurl4-openssl-dev libssl-dev
-RUN R -e "install.packages(c('repr', 'IRdisplay', 'crayon', 'pbdZMQ', 'devtools'),repos='http://cran.us.r-project.org');devtools::install_github('IRkernel/IRkernel');IRkernel::installspec()"
+RUN R -e "options(download.file.method = "wget");install.packages(c('repr', 'IRdisplay', 'crayon', 'pbdZMQ', 'devtools'),repos='http://cran.us.r-project.org');devtools::install_github('IRkernel/IRkernel');IRkernel::installspec()"
 RUN R -e "install.packages(c('data.table'),repos='http://cran.us.r-project.org')"
 RUN R -e "install.packages(c('ggplot2','raster','sp','zoo','rgdal','dplyr','vegan','ape','Rtsne','Rcpp','inline'),repos='http://cran.us.r-project.org')"
 
