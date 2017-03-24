@@ -168,3 +168,9 @@ sudo mount [VM1 host]:/data /data
 sudo mount [VM1 host]:[USER_HOME]/cablab-shared [USER_HOME]/cablab-shared
 sudo mount [VM1 host]:/data /data
 </pre></code>
+
+# SSL Certificate renewal
+
+1. Run `certbot renew` as stated in [here](ttp://letsencrypt.readthedocs.io/en/latest/using.html#renewing-certificates)
+2. Replace the existing certs in /secrets with the newly generated ones (the cert*x*.pem and privkey*x*.pem). cert*x*.pem as jupyterhub.crt and privkey*x*.pem as jupyterhub.key
+3. `docker rm -f jupyterhub && docker rmi -f jupyterhub && docker-compose up -d`
