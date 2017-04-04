@@ -12,10 +12,10 @@ RUN mkdir julia && tar xzf julia-0.5.0-linux-x86_64.tar.gz -C julia --strip-comp
 RUN PATH="/srv/jupyterhub/julia/bin:$PATH"
 WORKDIR /srv/jupyterhub/julia
 RUN echo 'Pkg.add("IJulia")' > IJulia.jl
-RUN echo 'Pkg.clone("https://github.com/CAB-LAB/CABLAB.jl");Pkg.checkout("Patchwork")' > installcablab.jl
+RUN echo 'Pkg.clone("https://github.com/CAB-LAB/CABLAB.jl");Pkg.add("Patchwork");Pkg.checkout("Patchwork");Pkg.clone("https://github.com/CAB-LAB/CABLABPlots.jl")' > installcablab.jl
 RUN echo 'Pkg.clone("https://github.com/milanflach/LIBSVM.jl");Pkg.checkout("LIBSVM","mutating_versions")' > installlibsvm.jl
 RUN echo 'Pkg.clone("https://github.com/milanflach/MultivariateAnomalies.jl")' > installmultivariate.jl
-RUN echo 'using CABLAB' > precomp.jl
+RUN echo 'using Compose; using CABLAB; using CABLABPlots' > precomp.jl
 USER jovyan
 RUN export CABLAB_WORKDIR="/home/jovyan/work/tmp"
 RUN /srv/jupyterhub/julia/bin/julia IJulia.jl
