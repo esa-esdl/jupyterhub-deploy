@@ -1,4 +1,4 @@
-From cablab/singleuser-python
+From cablab/singleuser-python:v4
 MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 
 # Install Julia
