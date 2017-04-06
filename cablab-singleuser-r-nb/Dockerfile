@@ -1,4 +1,4 @@
-From cablab/singleuser-julia
+From cablab/singleuser-julia:v4
 MAINTAINER Brockmann Consult GmbH <http://www.brockmann-consult.de>
 # Install R and R CABLAB
 USER root
