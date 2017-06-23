@@ -23,25 +23,25 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 
 ## Pre-configuration
 1. Modify `.env`file  
-  * `cd jupyterhub-deploy`  
-  * `cp .env.example .env`  
-  * modify .env
+   * `cd jupyterhub-deploy`  
+   * `cp .env.example .env`  
+   * modify .env
 2. Modify `userlist` file to grant normal or admin access to GitHub account(s)  
-  * `cd jupyterhub-deploy`  
-  * `touch userlist`
-  * modify userlist  
+   * `cd jupyterhub-deploy`  
+   * `touch userlist`
+   * modify userlist  
      Example :
      <pre><code>user1 admin  
      user2  
      user3</pre></code>
 3. Copy the certificates to `secrets`folder
-  * `cd jupyterhub-deploy` 
-  * mkdir secrets
-  * `cp <any directory>/jupyterhub.crt secrets/`
-  * `cp <any directory>/jupyterhub.key secrets/`
+   * `cd jupyterhub-deploy` 
+   * mkdir secrets
+   * `cp <any directory>/jupyterhub.crt secrets/`
+   * `cp <any directory>/jupyterhub.key secrets/`
 4. Create a cookie secret, which is an encryption key, used to encrypt the browser cookies used for authentication.
-  * `cd jupyterhub-deploy` 
-  * `openssl rand -hex 32 > cookie_secret`
+   * `cd jupyterhub-deploy` 
+   * `openssl rand -hex 32 > cookie_secret`
 
 ## Deployment Ubuntu
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
