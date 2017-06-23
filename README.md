@@ -45,30 +45,30 @@ A Jupyterhub server that can spawn individual Jupyter Notebook containers in a c
 
 ## Deployment Ubuntu
 1. **VM1** acts as a Jupyterhub server. Therefore, 2 components need to be set up: docker swarm manager and docker swarm consul. More information about those two can be found [here](https://docs.docker.com/swarm/install-manual/).
-  * run the consul container  
+   * run the consul container  
      ```docker run -d -p 8500:8500 --name=consul progrium/consul -server -bootstrap```
-  * run the swarm manager  
+   * run the swarm manager  
       ```docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM1 host]:4000 consul://[VM1 host]:8500```
 2. **VM2** acts as a node1 as well as a second manager. 
-  * run the swarm manager  
+   * run the swarm manager  
      ```docker run -d -p 4000:4000 swarm manage -H :4000 --replication --advertise [VM2 host]:4000 consul://[VM1 host]:8500```
-  * run the swarm node  
+   * run the swarm node  
      ```docker run -d swarm join --advertise=[VM2 host]:2375 consul://[VM1 host]:8500```
 3. **VM3** acts as a node2.
-  * run the swarm node  
+   * run the swarm node  
      ```docker run -d swarm join --advertise=[VM3 host]:2375 consul://[VM1 host]:8500```
 4. Restart the docker daemon in each VM with additional arguments to allow it to be part of the swarm cluster  
-  * VM1 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
-  * VM2 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM2 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
-  * VM3 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM3 host]:2375 --cluster-store consul://[VM1 host]:8500 &`
+   * VM1 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM1 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
+   * VM2 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM2 host]:2375 --cluster-store consul://[VM1 host]:8500 &`  
+   * VM3 : `nohup sudo docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --cluster-advertise [VM3 host]:2375 --cluster-store consul://[VM1 host]:8500 &`
 5. Create an overlay docker network so that containers can communicate to each other.  
    In VM1 : ```docker -H tcp://0.0.0.0:4000 network create -d overlay swarmnet```  
    Now **swarmnet** network should be available in all 3 VMs. Check using this command `docker network ls`
 6. Setup a NFS server in VM1 (for more information go to [this page](http://www.tldp.org/HOWTO/NFS-HOWTO/server.html)  
-  * ``vim /etc/exports`` and add the following entries
+   * ``vim /etc/exports`` and add the following entries
  <pre><code>/_[any path]_/jupyterhub-shared    *(rw,sync,no_root_squash)  
  /_[any path]_/cablab-shared        *(rw,sync,no_root_squash)</pre></code>
-  * ``exportfs -r``
+   * ``exportfs -r``
 7. Mount **jupyterhub-shared** and **cablab-shared** in each node VM  
    <pre><code>mount _[VM1 host]_:/_[any path]_/jupyterhub-shared /var/lib/docker/volumes
    mount _[VM1 host]_:/_[any path]_/cablab-shared /_[any local path]_/cablab-shared</code></pre>
