@@ -1,11 +1,11 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM jupyterhub/jupyterhub-onbuild:0.6.1
+FROM jupyterhub/jupyterhub-onbuild:0.7.2
 
 # Install dockerspawner and its dependencies
 RUN /opt/conda/bin/pip install \
-    jupyterhub==0.6.* \
-    oauthenticator==0.4.* \
+    jupyterhub==0.7.* \
+    oauthenticator==0.7.* \
     dockerspawner==0.3.*
 
 # Copy TLS certificate and key
